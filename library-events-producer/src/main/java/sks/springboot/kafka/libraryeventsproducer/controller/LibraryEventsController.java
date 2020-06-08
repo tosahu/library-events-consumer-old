@@ -17,6 +17,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import sks.springboot.kafka.libraryeventsproducer.domain.LibraryEvent;
+import sks.springboot.kafka.libraryeventsproducer.domain.LibraryEventType;
 import sks.springboot.kafka.libraryeventsproducer.producer.LibraryEventProducer;
 
 @RestController
@@ -38,6 +39,7 @@ public class LibraryEventsController {
 	public ResponseEntity<LibraryEvent> postLibraryEvent(@RequestBody LibraryEvent libraryEvent){
 	
 		try {
+			libraryEvent.setLibraryEventType(LibraryEventType.NEW);
 			libraryEventProducer.sendLibraryEvent(libraryEvent);
 			
 		} catch (Exception e) {
